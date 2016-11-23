@@ -1,0 +1,11 @@
+__pycache__/
+build/*
+dist/*
+*.py[cod]
+*.egg-info/
+*.egg
+.tox
+.cache
+main.py
+pip-log.txt
+.DS_Store
