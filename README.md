@@ -16,48 +16,36 @@ specify a version of CS-Cart and what kind of error do you have.
 
 ## Installation
 
-#### From PyPi (recommended)
+#### From PyPI
+
 ```bash
 pip install pycscart
 ```
 
 #### From GitHub
+
 ```bash
 pip install -e git+git@github.com:gongled/pycscart.git#egg=pycscart
 ```
 
 #### From source
+
 ```bash
 git clone git@github.com:gongled/pycscart
 python pycscart/setup.py install
 ```
 
-## Documentation
-
-API documentation is [here](https://gongled.github.io/pycscart).
-
-Or you can build the documentation yourself:
-```bash
-pip install sphinx
-pip install sphinx_rtd_theme
-cd docs/
-make html
-```
-
-The documentation will be in `gh-pages/html`:
-```bash
-open gh-pages/html/index.html
-```
-
 ## Basic Usage
 
 Create a `CSCartClient()` instance pointing at your CS-Cart store:
+
 ```python
 >>> from pycscart import CSCartClient
 >>> c = CSCartClient('http://example.com', 'admin@example.com', '2560VIl10GKpc3Hc7CNjB96U4HIW6299')
 ```
 
 Then try calling some methods:
+
 ```python
 >>> c.list_products()
 [CSCartProduct::{}, CSCartProduct::{}, ...]
