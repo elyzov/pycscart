@@ -4,6 +4,7 @@ build: clean check
 
 check:
 		tox -e pep8
+		tox -e test-py26
 		tox -e test-py27
 		tox -e test-py33
 

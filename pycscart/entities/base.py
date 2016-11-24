@@ -19,10 +19,17 @@ class CSCartObject(object):
 
         :rtype: dict
         """
+        data = {}
+
         if minimal:
-            return {k: v for k, v in vars(self).items() if (v or v is False or v == 0)}
+            for k, v in vars(self).items():
+                if (v or v is False or v == 0):
+                    data.update(dict({k: v}))
         else:
-            return {k: v for k, v in vars(self).items()}
+            for k, v in vars(self).items():
+                data.update(dict({k: v}))
+
+        return data
 
     @classmethod
     def from_json(cls, attributes):
@@ -30,7 +37,11 @@ class CSCartObject(object):
 
         :param dict attributes: object attributes from parsed response
         """
-        return cls(**{k: v for k, v in attributes.items()})
+        attrs = {}
+        for k, v in attributes.items():
+            attrs.update(dict({k: v}))
+
+        return cls(**attrs)
 
     def to_json(self, minimal=True):
         """Encode an object as a JSON string.

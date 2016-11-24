@@ -30,7 +30,10 @@ class CSCartJsonEncoder(json.JSONEncoder):
 
         if isinstance(obj, collections.Iterable) and not is_stringy(obj):
             try:
-                return {k: self.default(v) for k, v in obj.items()}
+                data = {}
+                for k, v in obj.items():
+                    data.update(dict({k: self.default(v)}))
+                return data
             except AttributeError:
                 return [self.default(e) for e in obj]
 
@@ -50,7 +53,11 @@ class CSCartMinimalJsonEncoder(json.JSONEncoder):
 
         if isinstance(obj, collections.Iterable) and not is_stringy(obj):
             try:
-                return {k: self.default(v) for k, v in obj.items() if (v or v in (False, 0))}
+                data = {}
+                for k, v in obj.items():
+                    if (v or v in (False, 0)):
+                        data.update(dict({k: self.default(v)}))
+                return data
             except AttributeError:
                 return [self.default(e) for e in obj if (e or e in (False, 0))]
 
