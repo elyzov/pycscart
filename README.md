@@ -5,27 +5,12 @@
 
 This is a Python library for interacting with [CS-Cart shopping cart](https://www.cs-cart.com) via [REST API](http://docs.cs-cart.com/4.3.x/developer_guide/api).
 
-#### Compatibility
-
-Compatible with CS-Cart 4.0.0 or newer. Older versions are not implemented because of no APIs in these releases.
-
-Keep in mind, that some methods could work only for a specific release. For example, you cannot have list of vendors on CS-Cart just as you cannot have a list of storefronts on Multi-Vendor installation.
-
-If you find a something is broken, please submit an issue. Don't forget to
-specify a version of CS-Cart and what kind of error do you have.
-
 ## Installation
 
 #### From PyPI
 
 ```bash
 pip install pycscart
-```
-
-#### From GitHub
-
-```bash
-pip install -e git+git@github.com:gongled/pycscart.git#egg=pycscart
 ```
 
 #### From source
@@ -50,6 +35,15 @@ Then try calling some methods:
 >>> c.list_products()
 [CSCartProduct::{}, CSCartProduct::{}, ...]
 ```
+
+## Compatibility
+
+Compatible with CS-Cart 4.0.0 or newer. Older versions are not implemented because of no APIs in these releases.
+
+Keep in mind, that some methods could work only for a specific release. For example, you cannot have list of vendors on CS-Cart just as you cannot have a list of storefronts on Multi-Vendor installation.
+
+If you find a something is broken, please submit an issue. Don't forget to
+specify a version of CS-Cart and what kind of error do you have.
 
 ## License
 
