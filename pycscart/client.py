@@ -454,7 +454,7 @@ class CSCartClient(object):
 
         return data
 
-    def delete_discussion(self, lang_id=None):
+    def delete_language(self, lang_id=None):
         response = self._do_request('DELETE', '/languages/%s' % lang_id)
 
         return response.status_code == requests.codes.no_content
@@ -623,7 +623,6 @@ class CSCartClient(object):
         url = '/categories/%s/products/%s' % (category_id, product_id) \
             if category_id else '/products/%s' % product_id
 
-        print url
         response = self._do_request('DELETE', url)
 
         return response.status_code == requests.codes.no_content
