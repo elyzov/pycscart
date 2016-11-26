@@ -217,6 +217,11 @@ class CSCartClient(object):
 
         return data
 
+    def delete_order(self, order_id=None):
+        response = self._do_request('DELETE', '/orders/%s' % order_id)
+
+        return response.status_code == requests.codes.no_content
+
     def list_settings(self, items_per_page=10, page=None):
         params = {
             'page': page,
@@ -262,6 +267,11 @@ class CSCartClient(object):
 
         return data
 
+    def delete_block(self, block_id=None):
+        response = self._do_request('DELETE', '/blocks/%s' % block_id)
+
+        return response.status_code == requests.codes.no_content
+
     @min_supported_version("4.3.5")
     def list_carts(
         self, page=1, items_per_page=10, sort_by='name',
@@ -290,6 +300,11 @@ class CSCartClient(object):
 
         return data
 
+    def delete_cart(self, cart_id=None):
+        response = self._do_request('DELETE', '/carts/%s' % cart_id)
+
+        return response.status_code == requests.codes.no_content
+
     @min_supported_version("4.3.5")
     def list_callrequests(
         self, page=1, items_per_page=10, sort_by='date',
@@ -316,6 +331,12 @@ class CSCartClient(object):
 
         return data
 
+    @min_supported_version("4.3.5")
+    def delete_callrequest(self, callrequest_id=None):
+        response = self._do_request('DELETE', '/call_requests/%s' % callrequest_id)
+
+        return response.status_code == requests.codes.no_content
+
     def list_categories(self, page=1, items_per_page=10):
         params = {
             'page': page,
@@ -340,6 +361,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_category(self, category_id=None):
+        response = self._do_request('DELETE', '/categories/%s' % category_id)
+
+        return response.status_code == requests.codes.no_content
 
     @min_supported_version("4.3.5")
     def list_discussions(
@@ -391,6 +417,15 @@ class CSCartClient(object):
 
         return data
 
+    @min_supported_version("4.3.5")
+    def delete_discussion(self, discussion_id=None, product_id=None):
+        url = '/products/%s/discussions/%s' % (product_id, discussion_id) \
+            if product_id else '/discussions/%s' % discussion_id
+
+        response = self._do_request('DELETE', url)
+
+        return response.status_code == requests.codes.no_content
+
     def list_languages(self, page=1, items_per_page=10):
         params = {
             'page': page,
@@ -418,6 +453,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_discussion(self, lang_id=None):
+        response = self._do_request('DELETE', '/languages/%s' % lang_id)
+
+        return response.status_code == requests.codes.no_content
 
     def list_langvars(self, page=1, items_per_page=10):
         params = {
@@ -447,6 +487,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_langvar(self, name=None):
+        response = self._do_request('DELETE', '/langvars/%s' % name)
+
+        return response.status_code == requests.codes.no_content
 
     @min_supported_version("4.3.5")
     def list_pages(
@@ -488,6 +533,12 @@ class CSCartClient(object):
 
         return data
 
+    @min_supported_version("4.3.5")
+    def delete_page(self, page_id=None):
+        response = self._do_request('DELETE', '/pages/%s' % page_id)
+
+        return response.status_code == requests.codes.no_content
+
     def list_payments(self, page=1, items_per_page=10):
         params = {
             'page': page,
@@ -512,6 +563,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_payment(self, payment_id=None):
+        response = self._do_request('DELETE', '/payments/%s' % payment_id)
+
+        return response.status_code == requests.codes.no_content
 
     def list_products(
         self, pname=None, pshort=None, pfull=None, pkeywords=None,
@@ -563,6 +619,15 @@ class CSCartClient(object):
 
         return data
 
+    def delete_product(self, product_id=None, category_id=None):
+        url = '/categories/%s/products/%s' % (category_id, product_id) \
+            if category_id else '/products/%s' % product_id
+
+        print url
+        response = self._do_request('DELETE', url)
+
+        return response.status_code == requests.codes.no_content
+
     def list_product_features(self, page=1, items_per_page=10, product_id=None):
         params = {
             'page': page,
@@ -588,6 +653,14 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_product_feature(self, feature_id=None, product_id=None):
+        url = '/products/%s/features/%s' % (product_id, feature_id) \
+            if product_id else '/features/%s' % feature_id
+
+        response = self._do_request('DELETE', url)
+
+        return response.status_code == requests.codes.no_content
 
     def list_product_options(self, product_id=None):
         params = {
@@ -616,6 +689,19 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_product_combination(
+        self, combination_hash=None, product_id=None
+    ):
+        params = {
+            'product_id': product_id
+        }
+
+        response = self._do_request(
+            'DELETE', '/combinations/%s' % combination_hash, params=params
+        )
+
+        return response.status_code == requests.codes.no_content
 
     def get_product_combination(self, combination_id):
         response = self._do_request('GET', '/combinations/%s' % combination_id)
@@ -651,6 +737,19 @@ class CSCartClient(object):
 
         return data
 
+    def delete_product_exception(
+        self, exception_id=None, product_id=None
+    ):
+        params = {
+            'product_id': product_id
+        }
+
+        response = self._do_request(
+            'DELETE', '/exceptions/%s' % exception_id, params=params
+        )
+
+        return response.status_code == requests.codes.no_content
+
     def list_shipments(self, page=1, items_per_page=10):
         params = {
             'page': page,
@@ -675,6 +774,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_shipment(self, shipment_id=None):
+        response = self._do_request('DELETE', '/shipments/%s' % shipment_id)
+
+        return response.status_code == requests.codes.no_content
 
     def list_shippings(self, page=1, items_per_page=10):
         params = {
@@ -704,6 +808,11 @@ class CSCartClient(object):
 
         return data
 
+    def delete_shipping(self, shipping_id=None):
+        response = self._do_request('DELETE', '/shippings/%s' % shipping_id)
+
+        return response.status_code == requests.codes.no_content
+
     def list_statuses(self, page=1, items_per_page=10):
         params = {
             'page': page,
@@ -730,6 +839,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_status(self, status_id=None):
+        response = self._do_request('DELETE', '/statuses/%s' % status_id)
+
+        return response.status_code == requests.codes.no_content
 
     @supported_brand("CS-Cart")
     def list_stores(
@@ -767,6 +881,12 @@ class CSCartClient(object):
 
         return data
 
+    @supported_brand("CS-Cart")
+    def delete_store(self, company_id=None):
+        response = self._do_request('DELETE', '/stores/%s' % company_id)
+
+        return response.status_code == requests.codes.no_content
+
     def list_taxes(self, page=1, items_per_page=10):
         params = {
             'page': page,
@@ -791,6 +911,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_tax(self, tax_id=None):
+        response = self._do_request('DELETE', '/taxes/%s' % tax_id)
+
+        return response.status_code == requests.codes.no_content
 
     def list_users(self, page=1, items_per_page=10):
         params = {
@@ -819,6 +944,11 @@ class CSCartClient(object):
 
         return data
 
+    def delete_user(self, user_id=None):
+        response = self._do_request('DELETE', '/users/%s' % user_id)
+
+        return response.status_code == requests.codes.no_content
+
     def list_usergroups(self, type='A', status='A', user_id=None):
         params = {
             'type': type,
@@ -846,6 +976,11 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def delete_usergroup(self, usergroup_id=None):
+        response = self._do_request('DELETE', '/usergroups/%s' % usergroup_id)
+
+        return response.status_code == requests.codes.no_content
 
     @supported_brand("Multi-Vendor")
     def list_vendors(
@@ -884,3 +1019,9 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    @supported_brand("Multi-Vendor")
+    def delete_vendor(self, vendor_id=None):
+        response = self._do_request('DELETE', '/vendors/%s' % vendor_id)
+
+        return response.status_code == requests.codes.no_content
