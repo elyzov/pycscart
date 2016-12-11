@@ -276,8 +276,8 @@ class CSCartClient(object):
     def list_carts(
         self, page=1, items_per_page=10, sort_by='name',
         sort_order='desc', cname=None, email=None, user_id=None,
-        with_info_only=False, users_type=None, total_from=None, total_to=None,
-        product_type_c=False, product_type_w=False, period=None,
+        with_info_only=None, users_type=None, total_from=None, total_to=None,
+        product_type_c=None, product_type_w=None, period=None,
         time_from=None, time_to=None, p_ids=None
     ):
         params = {
