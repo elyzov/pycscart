@@ -280,7 +280,27 @@ class CSCartClient(object):
         product_type_c=False, product_type_w=False, period=None,
         time_from=None, time_to=None, p_ids=None
     ):
-        response = self._do_request('GET', '/carts')
+        params = {
+            'page': page,
+            'items_per_page': items_per_page,
+            'sort_by': sort_by,
+            'sort_order': sort_order,
+            'cname': cname,
+            'email': email,
+            'user_id': user_id,
+            'with_info_only': with_info_only,
+            'users_type': users_type,
+            'total_from': total_from,
+            'total_to': total_to,
+            'product_type_c': product_type_c,
+            'product_type_w': product_type_w,
+            'period': period,
+            'time_from': time_from,
+            'time_to': time_to,
+            'p_ids': p_ids
+        }
+
+        response = self._do_request('GET', '/carts', params=params)
 
         if response.status_code == requests.codes.ok:
             data = self._parse_response(response, CSCartCart, is_list=True, resource_name='carts')
@@ -311,7 +331,21 @@ class CSCartClient(object):
         sort_order='desc', status=None, name=None, phone=None, company_id=None,
         order_status=None, user_id=None, order_exists=None
     ):
-        response = self._do_request('GET', '/call_requests')
+        params = {
+            'page': page,
+            'items_per_page': items_per_page,
+            'sort_by': sort_by,
+            'sort_order': sort_order,
+            'status': status,
+            'name': name,
+            'phone': phone,
+            'company_id': company_id,
+            'order_status': order_status,
+            'user_id': user_id,
+            'order_exists': order_exists
+        }
+
+        response = self._do_request('GET', '/call_requests', params=params)
 
         if response.status_code == requests.codes.ok:
             data = self._parse_response(response, CSCartCallRequest, is_list=True, resource_name='call_requests')
