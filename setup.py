@@ -8,7 +8,7 @@ if sys.version_info >= (3,):
 
 setup(
     name='pycscart',
-    version='1.0.4',
+    version='1.0.5',
     description='CS-Cart Client Library',
     long_description="""
         Python interface to the CS-Cart or Multi-Vendor REST API.
