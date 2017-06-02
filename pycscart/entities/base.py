@@ -38,8 +38,9 @@ class CSCartObject(object):
         :param dict attributes: object attributes from parsed response
         """
         attrs = {}
-        for k, v in attributes.items():
-            attrs.update(dict({k: v}))
+        if attributes:
+	        for k, v in attributes.items():
+	            attrs.update(dict({k: v}))
 
         return cls(**attrs)
 

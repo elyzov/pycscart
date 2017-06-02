@@ -79,7 +79,7 @@ class CSCartClient(object):
                 code=response.status_code, body=response.text))
             raise InternalServerError(response)
         elif response.status_code >= 400:
-            pycscart.log.error('Got HTTP {code}: {body}'.format(
+            pycscart.log.info('Got HTTP {code}: {body}'.format(
                 code=response.status_code, body=response.text))
             if response.status_code == requests.codes.bad_request:
                 raise BadRequestError(response)
@@ -138,7 +138,7 @@ class CSCartClient(object):
             data = self._parse_info(response.text)
             data = {
                 'brand': data.get('brand', None),
-                'version': Version(data.get('version', CSCartClient.CSCART_API_MIN_VERSION)),
+                'version': Version(data.get('version', CSCartClient.CSCART_API_MIN_VERSION).replace('SP','')),
                 'edition': data.get('edition', None)
             }
         else:
@@ -653,6 +653,10 @@ class CSCartClient(object):
 
         return data
 
+    def put_product(self, product_id, data):
+        response = self._do_request('PUT', '/products/%s' % product_id, data=data)
+        return response.status_code == requests.codes.ok
+
     def delete_product(self, product_id=None, category_id=None):
         url = '/categories/%s/products/%s' % (category_id, product_id) \
             if category_id else '/products/%s' % product_id
@@ -709,6 +713,10 @@ class CSCartClient(object):
 
         return data
 
+    def put_product_option(self, option_id, data):
+        response = self._do_request('PUT', '/options/%s' % option_id, data=data)
+        return response.status_code == requests.codes.ok
+
     def list_product_combinations(self, product_id=None):
         params = {
             'product_id': product_id
@@ -722,6 +730,10 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def put_product_combination(self, combination_hash, data):
+        response = self._do_request('PUT', '/combinations/%s' % combination_hash, data=data)
+        return response.status_code == requests.codes.ok
 
     def delete_product_combination(
         self, combination_hash=None, product_id=None

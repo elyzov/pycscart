@@ -238,12 +238,12 @@ class CSCartProductOptionCombination(CSCartResource):
         self.combination = combination
         self.amount = amount
         self.temp = temp
-        self.position = position
 
+        self.position = position
         self.image_pairs = [i if isinstance(
                 i, CSCartProductImagePair
             ) else CSCartProductImagePair().from_json(i)
-            for i in image_pairs.values()
+            for i in (image_pairs.values() if isinstance(image_pairs, list) else [image_pairs])
         ] if image_pairs else []
 
         for k, v in kwargs.items():
