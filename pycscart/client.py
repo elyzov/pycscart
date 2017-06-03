@@ -657,6 +657,13 @@ class CSCartClient(object):
         response = self._do_request('PUT', '/products/%s' % product_id, data=data)
         return response.status_code == requests.codes.ok
 
+    def post_product(self, data):
+        response = self._do_request('POST', '/products', data=data)
+        if response.status_code == requests.codes.created:
+          r = response.json()
+          return r['product_id']
+        return False
+
     def delete_product(self, product_id=None, category_id=None):
         url = '/categories/%s/products/%s' % (category_id, product_id) \
             if category_id else '/products/%s' % product_id
@@ -713,6 +720,23 @@ class CSCartClient(object):
 
         return data
 
+    def get_product_option(self, option_id):
+        response = self._do_request('GET', '/options/%s' % option_id)
+
+        if response.status_code == requests.codes.ok:
+            data = self._parse_response(response, CSCartProductOption)
+        else:
+            data = False
+
+        return data
+
+    def post_product_option(self, data):
+        response = self._do_request('POST', '/options', data=data)
+        if response.status_code == requests.codes.created:
+          r = response.json()
+          return r['option_id']
+        return False
+
     def put_product_option(self, option_id, data):
         response = self._do_request('PUT', '/options/%s' % option_id, data=data)
         return response.status_code == requests.codes.ok
@@ -730,6 +754,13 @@ class CSCartClient(object):
             data = False
 
         return data
+
+    def post_product_combination(self, data):
+        response = self._do_request('POST', '/combinations', data=data)
+        if response.status_code == requests.codes.created:
+          r = response.json()
+          return r['combination_hash']
+        return False
 
     def put_product_combination(self, combination_hash, data):
         response = self._do_request('PUT', '/combinations/%s' % combination_hash, data=data)
