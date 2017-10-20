@@ -608,7 +608,8 @@ class CSCartClient(object):
         pcode=None, cid=None, amount_from=None, amount_to=None, price_from=None,
         price_to=None, subcats=None, order_ids=None, free_shipping=None,
         status=None, list_price=None, product=None, price=None, code=None,
-        amount=None, page=1, items_per_page=10
+        amount=None, page=1, items_per_page=10, get_options=False, get_features=True,
+        get_detailed=True, get_icon=True, get_additional=True, detailed_params=False
     ):
         params = {
             'pname': pname,
@@ -631,7 +632,13 @@ class CSCartClient(object):
             'code': code,
             'amount': amount,
             'page': page,
-            'items_per_page': items_per_page
+            'items_per_page': items_per_page,
+            'get_options': get_options,
+            'get_features': get_features,
+            'get_detailed': get_detailed,
+            'get_icon': get_icon,
+            'get_additional': get_additional,
+            'detailed_params': detailed_params,
         }
 
         response = self._do_request('GET', '/products', params=params)

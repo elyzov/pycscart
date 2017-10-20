@@ -47,7 +47,8 @@ class CSCartProduct(CSCartResource):
         category_ids=None, discounts=None, low_avail_limit=None,
         details_layout=None, main_pair=None, age_limit=None, tax_ids=None,
         status=None, product=None, shipping_params=None, timestamp=None,
-        price=None, product_features=None, options_type=None, max_qty=None,
+        price=None, product_features=None, product_options=None,
+        product_combinations=None, options_type=None, max_qty=None,
         min_qty=None, return_period=None, zero_price_action=None, qty_step=None,
         tracking=None, product_type=None, product_id=None, list_qty_count=None,
         usergroup_ids=None, is_edp=None, discussion_thread_id=None, length=None,
@@ -113,6 +114,18 @@ class CSCartProduct(CSCartResource):
             ) else CSCartProductFeature().from_json(f)
             for f in product_features.values()
         ] if product_features else []
+
+        self.product_options = [f if isinstance(
+                f, CSCartProductOption
+            ) else CSCartProductOption().from_json(f)
+            for f in product_options.values()
+        ] if product_options else []
+
+        self.product_combinations = [f if isinstance(
+                f, CSCartProductOptionCombination
+            ) else CSCartProductOptionCombination().from_json(f)
+            for f in product_combinations
+        ] if product_combinations else []
 
         self.image_pairs = [i if isinstance(
                 i, CSCartProductImagePair
