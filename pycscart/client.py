@@ -59,7 +59,7 @@ class CSCartClient(object):
             'Content-Type': 'application/json', 'Accept': 'application/json'}
 
         url = ''.join([self.api_url.rstrip('/'), path])
-
+        response = None
         try:
             response = self.session.request(
                 method, url, params=params, data=data, headers=headers,
